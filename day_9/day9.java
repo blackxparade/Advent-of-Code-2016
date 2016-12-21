@@ -8,7 +8,7 @@ public class day9 {
     List<String> inputLines = new ArrayList<String>();
 
     // Read the input.
-    try(BufferedReader br = new BufferedReader(new FileReader("day9.txt"))) {
+    try(BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
       String line = br.readLine();
 
 
@@ -21,8 +21,8 @@ public class day9 {
 
     //System.out.println(input);
     //System.out.println(inputLines.get(4));
-    Part_1(inputLines);
-    //Part_2(inputLines);
+    //Part_1(inputLines);
+    Part_2(inputLines);
   }
 
   public static void Part_1(List<String> input) {
@@ -66,6 +66,51 @@ public class day9 {
     }
 
     System.out.println(decompressed.length());
+  }
+
+
+
+
+  public static void Part_2(List<String> input) {
+    int stringlength = 0;
+    for (int i=0; i<input.size(); i++) {
+      boolean bracket = false;
+      String marker = "";
+      for (int j=input.get(i).length()-1; j>=0; j--) {
+        if (input.get(i).charAt(j) != ')' && input.get(i).charAt(j) != '(' && !bracket)
+          stringlength++;
+
+        if (input.get(i).charAt(j) == ')')
+          bracket = true;
+
+        if (input.get(i).charAt(j) == '(') {
+          bracket = false;
+
+
+
+          int k = 0;
+          while (input.get(i).charAt(j+k) != ')') {
+            marker += input.get(i).charAt(j+k);
+            k++;
+          }
+
+          marker = marker.replaceAll("\\(","");
+          marker = marker.replaceAll("\\)","");
+          List<String> params = Arrays.asList(marker.split("x"));
+          marker = "";
+          System.out.println(params);
+
+          int length = Integer.parseInt(params.get(0));
+          int times = Integer.parseInt(params.get(1));
+
+          stringlength -= length;
+          stringlength += length * times;
+        }
+      }
+    }
+
+    System.out.println(stringlength);
+
   }
 
 
