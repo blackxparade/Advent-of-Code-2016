@@ -34,6 +34,9 @@ public class day9 {
       boolean wasOpen  = false;
 
       for (int j=0; j<input.get(i).length(); j++) {
+        if(!bracket && !wasOpen && input.get(i).charAt(j) != '(')
+          decompressed += input.get(i).charAt(j);
+
         if (input.get(i).charAt(j) == '(') {
           bracket = true;
           wasOpen = true;
@@ -51,9 +54,11 @@ public class day9 {
           for (int k=0; k<times; k++)
             decompressed += input.get(i).substring(j+1, j+length+1);
 
-          j += length+1;
+          j += length;
 
         }
+
+
 
         if (bracket) marker += input.get(i).charAt(j);
         if (!bracket) marker = "";
